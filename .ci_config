@@ -1,0 +1,5 @@
+{
+  "base_container_image": "docker-repo.wixpress.com/com.wixpress.proto-sync-setup:snapshot",
+  "python_version": "3",
+  "packaging_script": { "script" : "./build_bin.sh" }
+}
