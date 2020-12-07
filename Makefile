@@ -94,7 +94,6 @@ $(OUTBIN): .go/$(OUTBIN).stamp
 .go/$(OUTBIN).stamp: $(BUILD_DIRS)
 	@echo "making $(OUTBIN)"
 	@docker run                                                                  \
-	    -ti                                                                      \
 	    --rm                                                                     \
 	    -u $$(id -u):$$(id -g)                                                   \
 	    -v $$(pwd):/src                                                          \
