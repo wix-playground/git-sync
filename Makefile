@@ -119,6 +119,7 @@ DOTFILE_IMAGE = $(subst /,_,$(IMAGE))-$(TAG)
 
 wix-dockerfile: Dockerfile
 Dockerfile: bin/$(OS)_$(ARCH)/$(BIN) .dockerfile-$(OS)_$(ARCH)
+    @ls bin/$(OS)_$(ARCH)/$(BIN)
 	@cp .dockerfile-$(OS)_$(ARCH) Dockerfile
 
 
