@@ -1,5 +1,0 @@
-{
-  "base_container_image": "golang:1.14-alpine",
-  "python_version": "3",
-  "packaging_script": { "script" : "./build_bin.sh" }
-}

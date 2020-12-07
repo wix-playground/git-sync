@@ -93,7 +93,13 @@ $(OUTBIN): .go/$(OUTBIN).stamp
 .PHONY: .go/$(OUTBIN).stamp
 .go/$(OUTBIN).stamp: $(BUILD_DIRS)
 	@echo "making $(OUTBIN)"
-	ARCH=$(ARCH) OS=$(OS) VERSION=$(VERSION) ./build/build.sh
+    /tmp/scripts/runViaDocker.sh $(BUILD_IMAGE)                                      \
+            /bin/sh -c "                                                             \
+                ARCH=$(ARCH)                                                         \
+                OS=$(OS)                                                             \
+                VERSION=$(VERSION)                                                   \
+                ./build/build.sh                                                     \
+            "
 	@if ! cmp -s .go/$(OUTBIN) $(OUTBIN); then \
 	    mv .go/$(OUTBIN) $(OUTBIN);            \
 	    date >$@;                              \
