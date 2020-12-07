@@ -1,4 +1,4 @@
 #!/bin/bash
 
-make container GOOS=linux GOARCH=amd64
+make wix-dockerfile GOOS=linux GOARCH=amd64
 
