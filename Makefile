@@ -119,14 +119,22 @@ $(OUTBIN): .go/$(OUTBIN).stamp
 # Used to track state in hidden files.
 DOTFILE_IMAGE = $(subst /,_,$(IMAGE))-$(TAG)
 
-container: .container-$(DOTFILE_IMAGE) container-name
-.container-$(DOTFILE_IMAGE): bin/$(OS)_$(ARCH)/$(BIN) Dockerfile.in
+.dockerfile-$(OS)_$(ARCH): Dockerfile.in 
 	@sed \
 	    -e 's|{ARG_BIN}|$(BIN)|g' \
 	    -e 's|{ARG_ARCH}|$(ARCH)|g' \
 	    -e 's|{ARG_OS}|$(OS)|g' \
 	    -e 's|{ARG_FROM}|$(BASEIMAGE)|g' \
 	    Dockerfile.in > .dockerfile-$(OS)_$(ARCH)
+
+
+wix-dockerfile: Dockerfile
+Dockerfile: bin/$(OS)_$(ARCH)/$(BIN) .dockerfile-$(OS)_$(ARCH)
+	@cp .dockerfile-$(OS)_$(ARCH) Dockerfile
+
+
+container: .container-$(DOTFILE_IMAGE) container-name
+.container-$(DOTFILE_IMAGE): bin/$(OS)_$(ARCH)/$(BIN) .dockerfile-$(OS)_$(ARCH) 
 	@docker buildx build \
 	    --load \
 	    --platform "$(OS)/$(ARCH)" \
