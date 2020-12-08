@@ -36,7 +36,7 @@ export GOARCH="${ARCH}"
 export GOOS="${OS}"
 export GOFLAGS="-mod=vendor"
 
-go install                                                      \
+go install -v -x                                                \
     -installsuffix "static"                                     \
     -ldflags "-X $(go list -m)/pkg/version.VERSION=${VERSION}"  \
     ./...
