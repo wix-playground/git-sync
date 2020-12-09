@@ -1,4 +1,5 @@
 #!/bin/sh
+unset GOROOT
 PATH=/usr/local/go/bin:$PATH
 GOPATH=`pwd`/.go
 export GOPATH
