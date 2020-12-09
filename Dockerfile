@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM {ARG_FROM}
+FROM k8s.gcr.io/debian-base:v2.0.0
 
 RUN apt-get update \
     && apt-get -y upgrade \
@@ -30,8 +30,8 @@ RUN echo "git-sync:x:65533:65533::/tmp:/sbin/nologin" >> /etc/passwd
 # which needs to be able to write to /etc/passwd.
 #RUN chmod 0666 /etc/passwd
 
-ADD bin/{ARG_OS}_{ARG_ARCH}/{ARG_BIN} /{ARG_BIN}
+ADD .go/bin/git-sync /git-sync
 
 WORKDIR /tmp
 USER 65533:65533
-ENTRYPOINT ["/{ARG_BIN}"]
+ENTRYPOINT ["/git-sync"]

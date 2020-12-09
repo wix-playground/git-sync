@@ -4,4 +4,3 @@
 /.container-*
 /.dockerfile-*
 /.qemu-initialized
-/Dockerfile

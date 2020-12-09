@@ -92,10 +92,12 @@ $(OUTBIN): .go/$(OUTBIN).stamp
 # This will build the binary under ./.go and update the real binary iff needed.
 .PHONY: .go/$(OUTBIN).stamp
 .go/$(OUTBIN).stamp: $(BUILD_DIRS)
-	/tmp/scripts/runViaDocker.sh $(BUILD_IMAGE) './wix_build.sh'
-	@echo "made $(OUTBIN)"
-	@if ! cmp -s $PWD/.go/$(OUTBIN) $(OUTBIN); then \
-	    mv $PWD/.go/$(OUTBIN) $(OUTBIN);            \
+	@echo "making $(OUTBIN)"
+	/tmp/scripts/runViaDocker.sh                                                 \
+	    $(BUILD_IMAGE)                                                           \
+	    ./wix_build.sh
+	@if ! cmp -s .go/$(OUTBIN) $(OUTBIN); then \
+	    cp .go/bin/$(BIN) $(OUTBIN);            \
 	    date >$@;                              \
 	fi
 
