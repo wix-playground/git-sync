@@ -31,7 +31,9 @@ RUN echo "git-sync:x:65533:65533::/tmp:/sbin/nologin" >> /etc/passwd
 #RUN chmod 0666 /etc/passwd
 
 ADD .go/bin/git-sync /git-sync
+COPY run-git-sync.sh /run-git-sync.sh
+RUN chmod +x /run-git-sync.sh
 
 WORKDIR /tmp
 USER 65533:65533
-ENTRYPOINT ["/git-sync"]
+ENTRYPOINT ["/run-git-sync.sh"]
